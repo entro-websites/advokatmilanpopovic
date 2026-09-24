@@ -384,55 +384,32 @@
   /* ---------- OBLASTI RADA ---------- */
   .areas-head{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:64px;}
   .areas-head .lead{justify-self:end;}
-  .area-list{border-top:1px solid var(--line);}
-  .area{border-bottom:1px solid var(--line);position:relative;}
-  .area summary{
-    list-style:none;cursor:pointer;display:grid;grid-template-columns:96px 1fr auto 48px;gap:24px;align-items:center;
-    padding-top:28px;padding-bottom:28px;position:relative;
+  .area-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .area{
+    display:grid;grid-template-columns:160px 1fr;gap:24px;align-items:start;padding:24px;
+    background:#fff;border:1px solid var(--line);scroll-margin-top:120px;
+    transition:border-color .35s ease, box-shadow .35s ease;
   }
-  .area summary::-webkit-details-marker{display:none;}
-  .area summary::before{content:"";position:absolute;inset:0 -24px;background:var(--paper-2);z-index:-1;transform:scaleY(0);transform-origin:bottom;transition:transform .5s var(--ease);}
-  .area:hover summary::before,.area[open] summary::before{transform:scaleY(1);}
-  .area .rn{font-family:var(--serif);font-style:italic;font-size:28px;color:var(--accent);}
-  .area h3{font-size:clamp(28px,3.2vw,40px);transition:transform .5s var(--ease);}
-  .area:hover h3{transform:translateX(12px);}
-  .area .short{font-size:16px;color:var(--text-faint);text-align:right;}
-  .area .pm{width:48px;height:48px;border:1px solid var(--line);border-radius:50%;position:relative;transition:background .35s ease, border-color .35s ease, transform .5s var(--ease);}
-  .area .pm::before,.area .pm::after{content:"";position:absolute;left:50%;top:50%;width:16px;height:1px;background:var(--text);transform:translate(-50%,-50%);transition:transform .4s var(--ease);}
-  .area .pm::after{transform:translate(-50%,-50%) rotate(90deg);}
-  .area:hover .pm{border-color:var(--accent);}
-  .area[open] .pm{background:var(--accent);border-color:var(--accent);transform:rotate(180deg);}
-  .area[open] .pm::after{transform:translate(-50%,-50%) rotate(0deg);}
-  .area-body{display:grid;grid-template-columns:96px 1fr 280px 48px;gap:24px;padding-top:8px;padding-bottom:40px;}
-  .area-body ul{grid-column:2;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 40px;align-content:start;}
-  .area-body li{position:relative;padding-left:24px;color:var(--text-muted);line-height:1.5;}
-  .area-body li::before{content:"";position:absolute;left:0;top:12px;width:12px;height:1px;background:var(--accent);}
-  .area-body .area-cta{grid-column:2;margin-top:8px;}
-  .area-body img{grid-column:3;grid-row:1 / span 2;width:100%;aspect-ratio:280/224;object-fit:cover;}
-  .area[open] .area-body{animation:rise .6s var(--ease) both;}
-  .area-preview{
-    position:fixed;left:0;top:0;width:240px;aspect-ratio:280/224;pointer-events:none;z-index:120;overflow:hidden;
-    clip-path:inset(50% 50% 50% 50%);transition:clip-path .5s var(--ease);box-shadow:0 24px 48px rgba(16,15,13,.24);
-  }
-  .area-preview.on{clip-path:inset(0 0 0 0);}
-  .area-preview img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s ease;}
-  .area-preview img.on{opacity:1;}
-  @media (hover:none),(pointer:coarse),(max-width:991px){.area-preview{display:none;}}
+  .area:hover,.area:target{border-color:var(--accent-line);box-shadow:0 16px 40px rgba(16,15,13,.08);}
+  .area-img{overflow:hidden;aspect-ratio:280/224;}
+  .area-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);}
+  .area:hover .area-img img{transform:scale(1.06);}
+  .area .rn{display:block;font-family:var(--serif);font-style:italic;font-size:20px;line-height:1;color:var(--accent);margin-bottom:8px;}
+  .area h3{font-size:28px;margin-bottom:16px;}
+  .area ul{list-style:none;display:grid;gap:8px;}
+  .area li{position:relative;padding-left:24px;font-size:16px;color:var(--text-muted);line-height:1.5;}
+  .area li::before{content:"";position:absolute;left:0;top:12px;width:12px;height:1px;background:var(--accent);}
+  .areas-cta{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:48px;padding-top:32px;border-top:1px solid var(--line);}
+  .areas-cta p{font-size:20px;color:var(--text-muted);max-width:640px;}
   @media (max-width:991px){
     .areas-head{grid-template-columns:1fr;gap:24px;}
     .areas-head .lead{justify-self:start;}
-    .area summary{grid-template-columns:56px 1fr 48px;}
-    .area .short{display:none;}
-    .area-body{grid-template-columns:1fr;padding-left:0;}
-    .area-body ul,.area-body .area-cta,.area-body img{grid-column:1;grid-row:auto;}
-    .area-body img{max-width:320px;}
+    .area-grid{grid-template-columns:1fr;}
   }
   @media (max-width:600px){
-    .area summary{grid-template-columns:40px 1fr 40px;gap:16px;padding-top:20px;padding-bottom:20px;}
-    .area .rn{font-size:20px;}
-    .area .pm{width:40px;height:40px;}
-    .area-body ul{grid-template-columns:1fr;}
-    .area:hover h3{transform:none;}
+    .area{grid-template-columns:1fr;gap:20px;padding:20px;}
+    .area-img{aspect-ratio:2/1;}
+    .area h3{font-size:24px;}
   }
 
   /* ---------- SITUACIJE ---------- */
@@ -819,94 +796,95 @@
           <span class="eyebrow rv">Oblasti rada</span>
           <h2 class="h2 rv">Deset oblasti prava, <em>jedna adresa</em></h2>
         </div>
-        <p class="lead rv">Otvorite oblast da vidite konkretne postupke koje vodimo. Ako Vaš slučaj nije na listi, pozovite, pa ćemo Vam na prvom razgovoru reći da li možemo da pomognemo.</p>
+        <p class="lead rv">Za svaku oblast naveli smo konkretne postupke koje vodimo, da odmah vidite da li je Vaš slučaj među njima.</p>
       </div>
 
-      <div class="area-list" id="areaList">
-        <details class="area" id="o-krivicno" data-img="0">
-          <summary><span class="rn">I</span><h3>Krivično pravo</h3><span class="short">Odbrana i zastupanje oštećenih</span><span class="pm"></span></summary>
-          <div class="area-body">
+      <div class="area-grid">
+        <article class="area rv" id="o-krivicno">
+          <div class="area-img"><img src="assets/oblast-krivicno.jpg" alt="Osoba u lisicama za stolom tokom saslušanja" loading="lazy" width="280" height="224"></div>
+          <div>
+            <span class="rn">I</span>
+            <h3>Krivično pravo</h3>
             <ul><li>Zastupanje okrivljenih i maloletnih učinilaca krivičnih dela</li><li>Zastupanje oštećenih</li><li>Zastupanje privatnih tužilaca</li></ul>
-            <a href="#kontakt" class="btn-link area-cta">Zakažite razgovor o krivičnom predmetu</a>
-            <img src="assets/oblast-krivicno.jpg" alt="Osoba u lisicama za stolom tokom saslušanja" loading="lazy" width="280" height="224">
           </div>
-        </details>
-        <details class="area" id="o-imovinsko" data-img="1">
-          <summary><span class="rn">II</span><h3>Imovinsko pravni odnosi</h3><span class="short">Vlasništvo, ugovori, posed</span><span class="pm"></span></summary>
-          <div class="area-body">
+        </article>
+        <article class="area rv" id="o-imovinsko">
+          <div class="area-img"><img src="assets/oblast-imovinsko.jpg" alt="Predaja ključeva stana iz ruke u ruku" loading="lazy" width="280" height="224"></div>
+          <div>
+            <span class="rn">II</span>
+            <h3>Imovinsko pravni odnosi</h3>
             <ul><li>Utvrđivanje prava vlasništva</li><li>Utvrđivanje ništavosti i poništaj ugovora</li><li>Smetanje poseda</li></ul>
-            <a href="#kontakt" class="btn-link area-cta">Pitajte za svoj imovinski spor</a>
-            <img src="assets/oblast-imovinsko.jpg" alt="Predaja ključeva stana iz ruke u ruku" loading="lazy" width="280" height="224">
           </div>
-        </details>
-        <details class="area" id="o-nasledno" data-img="2">
-          <summary><span class="rn">III</span><h3>Nasledno pravo</h3><span class="short">Ostavina i testament</span><span class="pm"></span></summary>
-          <div class="area-body">
+        </article>
+        <article class="area rv" id="o-nasledno">
+          <div class="area-img"><img src="assets/oblast-nasledno.jpg" alt="Advokat potpisuje dokument pored sudijskog čekića" loading="lazy" width="280" height="224"></div>
+          <div>
+            <span class="rn">III</span>
+            <h3>Nasledno pravo</h3>
             <ul><li>Pokretanje i vođenje ostavinskih postupaka</li><li>Sačinjavanje ugovora o doživotnom izdržavanju</li><li>Sačinjavanje zaveštanja (testamenta)</li></ul>
-            <a href="#kontakt" class="btn-link area-cta">Zakažite razgovor o nasledstvu</a>
-            <img src="assets/oblast-nasledno.jpg" alt="Advokat potpisuje dokument pored sudijskog čekića" loading="lazy" width="280" height="224">
           </div>
-        </details>
-        <details class="area" id="o-porodicno" data-img="3">
-          <summary><span class="rn">IV</span><h3>Porodično pravo</h3><span class="short">Razvod, deca, alimentacija</span><span class="pm"></span></summary>
-          <div class="area-body">
+        </article>
+        <article class="area rv" id="o-porodicno">
+          <div class="area-img"><img src="assets/oblast-porodicno.jpg" alt="Majka i ćerka leže zagrljene na travi" loading="lazy" width="280" height="224"></div>
+          <div>
+            <span class="rn">IV</span>
+            <h3>Porodično pravo</h3>
             <ul><li>Razvod braka</li><li>Zakonsko izdržavanje (alimentacija)</li><li>Nasilje u porodici</li><li>Poveravanje maloletne dece</li><li>Lišenje roditeljskog prava</li></ul>
-            <a href="#kontakt" class="btn-link area-cta">Razgovarajte sa advokatom u poverenju</a>
-            <img src="assets/oblast-porodicno.jpg" alt="Majka i ćerka leže zagrljene na travi" loading="lazy" width="280" height="224">
           </div>
-        </details>
-        <details class="area" id="o-steta" data-img="4">
-          <summary><span class="rn">V</span><h3>Naknada štete</h3><span class="short">Povrede i saobraćajne nezgode</span><span class="pm"></span></summary>
-          <div class="area-body">
+        </article>
+        <article class="area rv" id="o-steta">
+          <div class="area-img"><img src="assets/oblast-naknada-stete.jpg" alt="Oštećen motocikl posle saobraćajne nezgode" loading="lazy" width="280" height="224"></div>
+          <div>
+            <span class="rn">V</span>
+            <h3>Naknada štete</h3>
             <ul><li>Pokretanje postupka naplate mirnim putem</li><li>Materijalna i nematerijalna šteta</li><li>Zastupanje u postupcima povodom svih vrsta povreda i saobraćajnih nezgoda</li></ul>
-            <a href="#kontakt" class="btn-link area-cta">Proverite da li imate pravo na naknadu</a>
-            <img src="assets/oblast-naknada-stete.jpg" alt="Oštećen motocikl posle saobraćajne nezgode" loading="lazy" width="280" height="224">
           </div>
-        </details>
-        <details class="area" id="o-ugovori" data-img="5">
-          <summary><span class="rn">VI</span><h3>Sastavljanje ugovora</h3><span class="short">Prodaja, zakup, zajam, građenje</span><span class="pm"></span></summary>
-          <div class="area-body">
+        </article>
+        <article class="area rv" id="o-ugovori">
+          <div class="area-img"><img src="assets/oblast-ugovori.jpg" alt="Ruka nalivperom potpisuje ugovor" loading="lazy" width="280" height="224"></div>
+          <div>
+            <span class="rn">VI</span>
+            <h3>Sastavljanje ugovora</h3>
             <ul><li>Ugovor o prodaji</li><li>Ugovor o zakupu</li><li>Ugovor o posredovanju, zajmu, građenju</li></ul>
-            <a href="#kontakt" class="btn-link area-cta">Pošaljite ugovor na pregled</a>
-            <img src="assets/oblast-ugovori.jpg" alt="Ruka nalivperom potpisuje ugovor" loading="lazy" width="280" height="224">
           </div>
-        </details>
-        <details class="area" id="o-prekrsajni" data-img="6">
-          <summary><span class="rn">VII</span><h3>Prekršajni postupci</h3><span class="short">Saobraćajni i privredni prestupi</span><span class="pm"></span></summary>
-          <div class="area-body">
+        </article>
+        <article class="area rv" id="o-prekrsajni">
+          <div class="area-img"><img src="assets/oblast-prekrsajni.jpg" alt="Dvojica muškaraca u odelima razgovaraju" loading="lazy" width="280" height="224"></div>
+          <div>
+            <span class="rn">VII</span>
+            <h3>Prekršajni postupci</h3>
             <ul><li>Odbrana pred Prekršajnim sudom</li><li>Saobraćajni prekršaji</li><li>Privredni prestupi</li></ul>
-            <a href="#kontakt" class="btn-link area-cta">Zakažite razgovor pre ročišta</a>
-            <img src="assets/oblast-prekrsajni.jpg" alt="Dvojica muškaraca u odelima razgovaraju" loading="lazy" width="280" height="224">
           </div>
-        </details>
-        <details class="area" id="o-radno" data-img="7">
-          <summary><span class="rn">VIII</span><h3>Radno pravo</h3><span class="short">Mobing i radnopravni akti</span><span class="pm"></span></summary>
-          <div class="area-body">
+        </article>
+        <article class="area rv" id="o-radno">
+          <div class="area-img"><img src="assets/oblast-radno.jpg" alt="Radnik sa zaštitnim šlemom na gradilištu u zalasku sunca" loading="lazy" width="280" height="224"></div>
+          <div>
+            <span class="rn">VIII</span>
+            <h3>Radno pravo</h3>
             <ul><li>Mobing i zastupanje u ostalim radnopravnim postupcima</li><li>Izrada kolektivnih ugovora</li><li>Izrada opštih i pojedinačnih radnopravnih akata</li></ul>
-            <a href="#kontakt" class="btn-link area-cta">Zaštitite svoja prava na poslu</a>
-            <img src="assets/oblast-radno.jpg" alt="Radnik sa zaštitnim šlemom na gradilištu u zalasku sunca" loading="lazy" width="280" height="224">
           </div>
-        </details>
-        <details class="area" id="o-privredno" data-img="8">
-          <summary><span class="rn">IX</span><h3>Privredno pravo</h3><span class="short">Osnivanje, akti, stečaj</span><span class="pm"></span></summary>
-          <div class="area-body">
+        </article>
+        <article class="area rv" id="o-privredno">
+          <div class="area-img"><img src="assets/oblast-privredno.jpg" alt="Poslovni rukovanje za stolom" loading="lazy" width="280" height="224"></div>
+          <div>
+            <span class="rn">IX</span>
+            <h3>Privredno pravo</h3>
             <ul><li>Osnivanje i registrovanje privrednih društava</li><li>Izrada pravnih akata</li><li>Zastupanje pred Privrednim sudom</li><li>Stečajni i likvidacioni postupci</li></ul>
-            <a href="#kontakt" class="btn-link area-cta">Zakažite razgovor za svoju firmu</a>
-            <img src="assets/oblast-privredno.jpg" alt="Poslovni rukovanje za stolom" loading="lazy" width="280" height="224">
           </div>
-        </details>
-        <details class="area" id="o-parnicni" data-img="9">
-          <summary><span class="rn">X</span><h3>Parnični, vanparnični, izvršni i upravni postupci</h3><span class="short">Od tužbe do naplate</span><span class="pm"></span></summary>
-          <div class="area-body">
+        </article>
+        <article class="area rv" id="o-parnicni">
+          <div class="area-img"><img src="assets/oblast-parnicni.jpg" alt="Drveni sudijski čekić" loading="lazy" width="280" height="224"></div>
+          <div>
+            <span class="rn">X</span>
+            <h3>Parnični, vanparnični, izvršni i upravni postupci</h3>
             <ul><li>Zastupanje u svim vrstama parničnih, vanparničnih i upravnih postupaka</li><li>Pokretanje i vođenje izvršnih postupaka</li></ul>
-            <a href="#kontakt" class="btn-link area-cta">Pitajte za svoj postupak</a>
-            <img src="assets/oblast-parnicni.jpg" alt="Drveni sudijski čekić" loading="lazy" width="280" height="224">
           </div>
-        </details>
+        </article>
       </div>
-    </div>
-    <div class="area-preview" id="areaPreview" aria-hidden="true">
-      <img src="assets/oblast-krivicno.jpg" alt=""><img src="assets/oblast-imovinsko.jpg" alt=""><img src="assets/oblast-nasledno.jpg" alt=""><img src="assets/oblast-porodicno.jpg" alt=""><img src="assets/oblast-naknada-stete.jpg" alt=""><img src="assets/oblast-ugovori.jpg" alt=""><img src="assets/oblast-prekrsajni.jpg" alt=""><img src="assets/oblast-radno.jpg" alt=""><img src="assets/oblast-privredno.jpg" alt=""><img src="assets/oblast-parnicni.jpg" alt="">
+      <div class="areas-cta rv">
+        <p>Vaš slučaj nije na listi? Pozovite, pa ćemo Vam na prvom razgovoru reći da li možemo da pomognemo.</p>
+        <a href="#kontakt" class="btn btn-primary">Zakažite razgovor</a>
+      </div>
     </div>
   </section>
 
@@ -1309,31 +1287,6 @@
   window.addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(frame); } }, {passive:true});
   window.addEventListener('resize', frame);
   frame();
-
-  // oblasti: pregled slike prati kursor
-  var list = document.getElementById('areaList');
-  var prev = document.getElementById('areaPreview');
-  var pimgs = prev.querySelectorAll('img');
-  var mx = 0, my = 0, px = 0, py = 0, raf = null;
-  function follow(){
-    px += (mx - px) * .16; py += (my - py) * .16;
-    prev.style.transform = 'translate(' + (px + 32) + 'px,' + (py - 96) + 'px) rotate(' + ((mx - px) * .04).toFixed(2) + 'deg)';
-    raf = requestAnimationFrame(follow);
-  }
-  list.querySelectorAll('.area').forEach(function(a){
-    var s = a.querySelector('summary');
-    s.addEventListener('mouseenter', function(e){
-      if(a.open) return;
-      pimgs.forEach(function(im, i){ im.classList.toggle('on', i === +a.dataset.img); });
-      if(!prev.classList.contains('on')){ px = mx = e.clientX; py = my = e.clientY; }
-      prev.classList.add('on');
-      if(!raf) follow();
-    });
-    s.addEventListener('mouseleave', function(){ prev.classList.remove('on'); });
-    s.addEventListener('click', function(){ prev.classList.remove('on'); });
-  });
-  list.addEventListener('mousemove', function(e){ mx = e.clientX; my = e.clientY; });
-  list.addEventListener('mouseleave', function(){ prev.classList.remove('on'); cancelAnimationFrame(raf); raf = null; });
 
   // linkovi koji otvaraju oblast / tekst na mestu
   document.querySelectorAll('[data-open]').forEach(function(a){
